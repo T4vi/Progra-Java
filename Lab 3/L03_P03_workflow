@@ -1,0 +1,11 @@
+Clasa GameMinesweeper: 
+  Constr dim, nrmine  with Nrmine <= ⅓ dim^2		 - constructor
+  Rand generate mines in matrix 0 - safe, 1 - mine	- function
+  * extra - nr de mine din jur
+  checkIfMine() 		 - 1 if mine, 0 if safe
+  A,b <- check position 				- function from keyboard input
+    - end game if mine, continue if not 		- part of previous
+  (show board & mines left)
+  Intercface: Start with mat full of x’s
+    0 - if pos is safe and checked
+    1 if pos had a bomb =>  lose
