@@ -6,10 +6,12 @@ package lab03;
  */
 public interface GeometricForm
 {
-	double calcArea(int x);
-	double calcArea(int x, int y);
-	double calcPerim(int x);
-	double calcPerim(int x, int y);
+	double calcArea();
+	double calcArea(double x);
+	double calcArea(double x, double y);
+	double calcPerim();
+	double calcPerim(double x);
+	double calcPerim(double x, double y);
 }
 
 class Square implements GeometricForm 
@@ -18,32 +20,41 @@ class Square implements GeometricForm
 	private double l;
 
 	@Override
-	public double calcArea(int x) {
+	public double calcArea(double x) {
 		return x * x;
 	}
 
-	public double calcArea(int x, int y) {
+	public double calcArea(double x, double y) {
 		return calcArea(x);
 	}
 
-	public double calcPerim(int x) {
+	public double calcPerim(double x) {
 		return 4 * x;
 	}
 
-	public double calcPerim(int x, int y) {
+	public double calcPerim(double x, double y) {
 		return calcPerim(x);
+	}
+	
+	public double calcArea() {
+		return calcArea(l);
+	}
+
+	public double calcPerim() {
+		return calcPerim(l);
 	}
 	
 	public Square()  {
 		this.setL(0);
 	}
 
-	public Square(int l) {
+	public Square(double l) {
 		this.setL(l);
 	}
 
 	public Square(Square s) {
 		this.setL(s.getL());
+		this.l = s.getL();
 	}
 
 	public double getL() {
@@ -54,13 +65,15 @@ class Square implements GeometricForm
 		this.l = l;
 	}
 	
-	public static int addSquareToArray(Square s, Square[] sarray, int pos) {
+	public static double addSquareToArray(Square s, Square[] sarray, int pos) {
 		if (pos > sarray.length)
 			return -1;
 		
 		sarray[pos] = new Square(s);
 		return 0;
 	}
+
+
 }
 
 class Circle implements GeometricForm 
@@ -70,27 +83,35 @@ class Circle implements GeometricForm
 	private final double PI = 3.14159265358979;
 
 	@Override
-	public double calcArea(int x) {
+	public double calcArea(double x) {
 		return PI * x * x;
 	}
 
-	public double calcArea(int x, int y) {
+	public double calcArea(double x, double y) {
 		return calcArea(x);
 	}
 
-	public double calcPerim(int x) {
+	public double calcPerim(double x) {
 		return 2 * PI * x;
 	}
 
-	public double calcPerim(int x, int y) {
+	public double calcPerim(double x, double y) {
 		return calcPerim(x);
+	}
+	
+	public double calcArea() {
+		return calcArea(r);
+	}
+
+	public double calcPerim() {
+		return calcPerim(r);
 	}
 	
 	public Circle()  {
 		this.setR(0);
 	}
 
-	public Circle(int r) {
+	public Circle(double r) {
 		this.setR(r);
 	}
 
@@ -106,7 +127,7 @@ class Circle implements GeometricForm
 		this.r = r;
 	}
 	
-	public static int addCircleToArray(Circle c, Circle[] carray, int pos) {
+	public static double addCircleToArray(Circle c, Circle[] carray, int pos) {
 		if (pos > carray.length)
 			return -1;
 		
@@ -121,20 +142,28 @@ class Rectangle implements GeometricForm
 	private double a,b;
 
 	@Override
-	public double calcArea(int x) {
+	public double calcArea(double x) {
 		return calcArea(x,x);
 	}
 
-	public double calcArea(int x, int y) {
+	public double calcArea(double x, double y) {
 		return a * b;
 	}
 
-	public double calcPerim(int x) {
+	public double calcPerim(double x) {
 		return calcPerim(x,x);
 	}
 
-	public double calcPerim(int x, int y) {
+	public double calcPerim(double x, double y) {
 		return 2 * x + 2 * y;
+	}
+	
+	public double calcArea() {
+		return calcArea(a,b);
+	}
+
+	public double calcPerim() {
+		return calcPerim(a,b);
 	}
 	
 	public Rectangle()  {
@@ -142,7 +171,7 @@ class Rectangle implements GeometricForm
 		this.setB(0);
 	}
 
-	public Rectangle(int a, int b) {
+	public Rectangle(double a, double b) {
 		this.setA(a);
 		this.setB(b);
 	}
@@ -168,7 +197,7 @@ class Rectangle implements GeometricForm
 		this.b = b;
 	}
 	
-	public static int addRectangleToArray(Rectangle r, Rectangle[] rarray, int pos) {
+	public static double addRectangleToArray(Rectangle r, Rectangle[] rarray, int pos) {
 		if (pos > rarray.length)
 			return -1;
 		
@@ -187,8 +216,12 @@ class mainclass
 		Circle circles[] 		= new Circle[10];
 		Rectangle rectangles[] 	= new Rectangle[10];
 		
+		// ....
 		
-
+		double s = 0;
+		for (int i = 0; i < squares.length; i++) {
+			s += squares[i].calcArea();
+		}
 		
 		
 		
