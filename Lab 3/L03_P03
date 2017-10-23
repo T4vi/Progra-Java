@@ -1,0 +1,158 @@
+package lab03;
+
+import java.util.Random;
+import java.util.Scanner;
+
+/**
+ * @author Tavi
+ * @description Problem 03
+ */
+public class GameMinesweeper {
+
+	@SuppressWarnings("static-access")
+	public static void main(String[] args) {
+		
+		Scanner s = new Scanner(System.in);
+		System.out.println("Enter playground dimension and number of mines: ");
+		GameMinesweeper GMS = new GameMinesweeper(s.nextInt(), s.nextInt());
+		GMS.Play();
+		s.close();
+	}
+	
+	static private int dim;
+	static private int nrMines;
+	static private int playground[][];
+	static private boolean gameStatus = true; // 1 - in progress, 0 - ended
+
+	@SuppressWarnings("static-access")
+	public GameMinesweeper(int d, int nrm)
+	{
+		if (d < 100 && d > 0)
+			this.dim = d;
+		else
+			this.dim = 10;
+		
+		if (nrm > d*d/3)
+			this.nrMines = d*d/3;
+		else
+			this.nrMines = nrm;
+		playground = new int[dim][dim];
+		initPlayground();
+	}
+	
+	private void initPlayground()
+	{
+		Random rand = new Random();
+		int randi;
+		for (int i = 0 ; i < nrMines ; i++ ) 
+		{
+			randi = rand.nextInt(dim*dim);
+			playground[randi/dim][randi%dim] = 1;	
+		}
+		// easier (in for):
+		/*
+		*	lin = linrand.nextInt(dim)
+			col = colrand.nextInt(dim)
+			playground[lin][col] = 1;
+		*/
+	}
+
+	private static boolean isSafe(int lin, int col)
+	{
+		if (playground[lin][col] == 1)
+			return false;
+		return true;
+	}
+
+	private static void printPlayground()
+	{
+		for (int i = 0 ; i < dim ; i++ ) 
+		{
+			for (int j = 0 ; j < dim ; j++ ) 
+				if (playground[i][j] == -1)
+					System.out.print("0 ");
+				else 
+					System.out.print("x ");	
+			System.out.println();
+		}
+		System.out.println();
+	}
+
+	private static void endGame()
+	{
+		gameStatus = false;
+		Random r = new Random();
+		int ri = r.nextInt(300) + 10;
+		for (int i = 0 ; i < ri ; i++ ) 
+		{
+			for (int j = 0 ; j < r.nextInt(50) + 5 ; j++ ) 
+				System.out.print("BOOM! ");
+			try        
+			{
+			    Thread.sleep(30);
+			} 
+			catch(InterruptedException ex) 
+			{
+			    Thread.currentThread().interrupt();
+			}
+			System.out.println();
+		}
+		System.out.println("== You died == (duh)");
+	}
+
+	private static void checkPosition(int lin, int col)
+	{
+		if (lin >= dim || lin < 0 || col >= dim || col < 0)
+		{
+			System.out.println("Invalid position");
+			endGame();
+			return ;
+		}
+		
+		if (isSafe(lin,col))
+		{
+			// mark pos as checked , print and continue
+			playground[lin][col] = -1;
+			printPlayground();
+		}
+		else
+		{
+			// gameEnd
+			endGame();
+		}
+	}
+	
+	private static void gameStart()
+	{
+		String startmsg = "== MINESWEEPER v0.44 == \n";
+		System.out.println(startmsg);
+		
+		startmsg = "== GAMESTART == \nEnter coordinate pairs as [a, b] or [a b] to check (-1,-1 to exit)\nGood luck!\n\n";
+		System.out.println(startmsg);
+		printPlayground();
+	}
+
+	public static void Play()
+	{
+		gameStart();
+		int lin = 0, col = 0;
+		Scanner s = new Scanner(System.in);
+		while (gameStatus && (lin != -1 && col != -1))
+		{
+			lin = s.nextInt();
+			col = s.nextInt();
+			checkPosition(lin, col);
+		}
+		s.close();
+	}
+	
+}
+/*
+
+x 0 x 0
+x x 0 x
+0 0 x x
+x x x x
+
+x x x x x x x x x x x x x x x x
+*/
