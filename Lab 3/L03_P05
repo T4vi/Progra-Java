@@ -1,1 +1,147 @@
-enter code and descripton here
+package lab03;
+
+/**
+ * @author Tavi
+ * @descripion Problem 5
+ */
+public interface GeometricForm
+{
+	double calcArea(int x);
+	double calcArea(int x, int y);
+	double calcPerim(int x);
+	double calcPerim(int x, int y);
+}
+
+class Square implements GeometricForm {
+
+	private double l;
+
+	@Override
+	public double calcArea(int x) {
+		return x * x;
+	}
+
+	public double calcArea(int x, int y) {
+		return calcArea(x);
+	}
+
+	public double calcPerim(int x) {
+		return 4 * x;
+	}
+
+	public double calcPerim(int x, int y) {
+		return calcPerim(x);
+	}
+	
+	public Square()  {
+		this.setL(0);
+	}
+
+	public Square(int l) {
+		this.setL(l);
+	}
+
+	public double getL() {
+		return l;
+	}
+
+	public void setL(double l) {
+		this.l = l;
+	}
+}
+
+class Circle implements GeometricForm {
+
+	private double r;
+	private final double PI = 3.14159265358979;
+
+	@Override
+	public double calcArea(int x) {
+		return PI * x * x;
+	}
+
+	public double calcArea(int x, int y) {
+		return calcArea(x);
+	}
+
+	public double calcPerim(int x) {
+		return 2 * PI * x;
+	}
+
+	public double calcPerim(int x, int y) {
+		return calcPerim(x);
+	}
+	
+	public Circle()  {
+		this.setR(0);
+	}
+
+	public Circle(int r) {
+		this.setR(r);
+	}
+
+	public double getR() {
+		return r;
+	}
+
+	public void setR(double r) {
+		this.r = r;
+	}
+}
+
+class Rectangle implements GeometricForm {
+
+	private double a,b;
+
+	@Override
+	public double calcArea(int x) {
+		return calcArea(x,x);
+	}
+
+	public double calcArea(int x, int y) {
+		return a * b;
+	}
+
+	public double calcPerim(int x) {
+		return calcPerim(x,x);
+	}
+
+	public double calcPerim(int x, int y) {
+		return 2 * x + 2 * y;
+	}
+	
+	public Rectangle()  {
+		this.setA(0);
+		this.setB(0);
+	}
+
+	public Rectangle(int a, int b) {
+		this.setA(a);
+		this.setB(b);
+	}
+
+	public double getA() {
+		return a;
+	}
+
+	public void setA(double a) {
+		this.a = a;
+	}
+
+	public double getB() {
+		return b;
+	}
+
+	public void setB(double b) {
+		this.b = b;
+	}
+}
+
+class mainclass
+{
+	public static void main(String args[])
+	{
+		
+	}
+
+}
