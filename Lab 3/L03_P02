@@ -1,0 +1,111 @@
+package lab03;
+
+/**
+ * @author Tavi
+ * @description Problem 2
+ */
+interface Grup
+{
+	public int addCopil(Copil c);
+	public int removeCopil(Copil c);
+	public int isCopil(Copil c);
+	public void listCopii();
+}
+
+public class GrupCopii implements Grup
+{
+	static final int NCOPIIMAX = 20;
+	static int nrCopii = 0;
+	static Copil db_copii[] = new Copil[NCOPIIMAX + 1]; 
+	
+	/**
+	** @description Inserts a new Copil in db, in ascending name order
+	** @return 0 if add operation succeeded, -1 if failed
+	*/
+	public int addCopil(Copil c)
+	{
+		if (nrCopii < NCOPIIMAX)
+		{
+			for (int i = 0; i < nrCopii ; i++)
+			{
+				if ((c.getNume().compareToIgnoreCase(db_copii[i].getNume())) < 0)
+				{
+					for (int j = nrCopii ; j > i ; j--) 
+						db_copii[j] = new Copil(db_copii[j-1]);
+					
+					db_copii[i] = new Copil(c);
+					nrCopii++;
+					return 0;
+				}	
+			}
+			db_copii[nrCopii] = new Copil(c);
+			nrCopii++;
+		}
+		else
+			return -1;
+		return 0;
+	}
+	
+	/**
+	** @return 0 if remove operation succeeded, -1 if failed
+	*/
+	public int removeCopil(Copil c) 
+	{
+		int isC = isCopil(c);
+		if (isC >= 0)
+		{
+			for (int i = isC; i < nrCopii - 1 ; i++)
+				db_copii[i] = new Copil(db_copii[i+1]);
+			
+			nrCopii--;
+			System.out.println(c.getNume() + " has left the group. (Trial expired)");
+			return 0;
+		}
+		return -1;
+	}
+	
+	/**
+	** @return index of c in db_copii or -1 if c doesn not exist in db_copii
+	*/
+	public int isCopil(Copil c) 
+	{
+		for (int i = 0; i < nrCopii ; i++) 
+			if (db_copii[i].is(c))
+				return i;	
+		return -1;
+	}
+	
+	public void listCopii() 
+	{
+		for (int i = 0 ; i < nrCopii ; i++)
+			System.out.println(db_copii[i].getNume() + ", nascut " + db_copii[i].getData());
+	}
+	
+	
+	
+	
+	
+	public static void main(String[] args) 
+	{
+		GrupCopii gc = new GrupCopii();
+		Copil c = new Copil("","");
+		c.setNume("Marian");
+		c.setData("niciodata");
+		gc.addCopil(c);
+		
+		c.setNume("Aorki");
+		c.setData("niciodata");
+		gc.addCopil(c);
+		
+		c.setNume("Corki");
+		c.setData("12/17/1996");
+		gc.addCopil(c);
+		gc.listCopii();
+		
+		
+		gc.removeCopil(c);
+		gc.listCopii();
+	}
+
+
+}
