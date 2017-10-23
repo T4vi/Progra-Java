@@ -1,1 +1,5 @@
-write stuff here...
+Define interface GeometricShape - area and perim method
+Implement [classes] for squares, rectangles, circles, equilateral triangles and isosceles triangles
+ - define area and perim methods for all shapes
+ - define constructors for all shapes 
+ - total area and perim of all shapes
