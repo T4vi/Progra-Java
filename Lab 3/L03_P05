@@ -12,7 +12,8 @@ public interface GeometricForm
 	double calcPerim(int x, int y);
 }
 
-class Square implements GeometricForm {
+class Square implements GeometricForm 
+{
 
 	private double l;
 
@@ -41,6 +42,10 @@ class Square implements GeometricForm {
 		this.setL(l);
 	}
 
+	public Square(Square s) {
+		this.setL(s.getL());
+	}
+
 	public double getL() {
 		return l;
 	}
@@ -48,9 +53,18 @@ class Square implements GeometricForm {
 	public void setL(double l) {
 		this.l = l;
 	}
+	
+	public static int addSquareToArray(Square s, Square[] sarray, int pos) {
+		if (pos > sarray.length)
+			return -1;
+		
+		sarray[pos] = new Square(s);
+		return 0;
+	}
 }
 
-class Circle implements GeometricForm {
+class Circle implements GeometricForm 
+{
 
 	private double r;
 	private final double PI = 3.14159265358979;
@@ -80,6 +94,10 @@ class Circle implements GeometricForm {
 		this.setR(r);
 	}
 
+	public Circle(Circle c) {
+		this.setR(c.getR());
+	}
+
 	public double getR() {
 		return r;
 	}
@@ -87,9 +105,18 @@ class Circle implements GeometricForm {
 	public void setR(double r) {
 		this.r = r;
 	}
+	
+	public static int addCircleToArray(Circle c, Circle[] carray, int pos) {
+		if (pos > carray.length)
+			return -1;
+		
+		carray[pos] = new Circle(c);
+		return 0;
+	}
 }
 
-class Rectangle implements GeometricForm {
+class Rectangle implements GeometricForm 
+{
 
 	private double a,b;
 
@@ -120,6 +147,11 @@ class Rectangle implements GeometricForm {
 		this.setB(b);
 	}
 
+	public Rectangle(Rectangle r) {
+		this.setA(r.getA());
+		this.setB(r.getB());
+	}
+
 	public double getA() {
 		return a;
 	}
@@ -135,12 +167,30 @@ class Rectangle implements GeometricForm {
 	public void setB(double b) {
 		this.b = b;
 	}
+	
+	public static int addRectangleToArray(Rectangle r, Rectangle[] rarray, int pos) {
+		if (pos > rarray.length)
+			return -1;
+		
+		rarray[pos] = new Rectangle(r);
+		return 0;
+	}
 }
 
 class mainclass
 {
 	public static void main(String args[])
 	{
+		//Object shapes[] 		= new Object[10];
+		
+		Square squares[] 		= new Square[10];
+		Circle circles[] 		= new Circle[10];
+		Rectangle rectangles[] 	= new Rectangle[10];
+		
+		
+
+		
+		
 		
 	}
 
