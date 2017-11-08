@@ -19,6 +19,10 @@ public abstract class People {
 	
 	public abstract void talk();
 	
+	public String toString() {
+		return "Name: " + name + ", age: " + age + "\n"; 
+	}
+	
 }
 
 class Kid extends People
